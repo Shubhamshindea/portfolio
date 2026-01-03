@@ -1,233 +1,193 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shubham Shinde | Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Shubham Shinde | Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+<!-- SCROLL PROGRESS -->
+<div id="scrollProgress"></div>
+
 <header class="header">
-  <h2 class="logo">Shubham</h2>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#resume">Resume</a>
-    <a href="#contact">Contact</a>
-    <a href="https://github.com/Shubhamshindea" target="_blank">GitHub</a>
-    <a href="https://www.linkedin.com/in/shubham-shinde-166831314" target="_blank">LinkedIn</a>
-  </nav>
+  <div class="container header-inner">
+    <h2>Shubham Shinde</h2>
+
+    <nav>
+      <a href="#home ">Home</a>
+      <a href="#skills ">Skills</a>
+      <a href="#resume ">Resume</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <button id="themeToggle">🌙</button>
+  </div>
 </header>
 
 <!-- HERO -->
-<section class="hero">
-  <img src="images/profile.jpg" alt="Profile Photo" class="profile-pic">
-  <h1 class="fade-in">Hi, I'm Shubham Shinde</h1>
-  <p class="fade-in delay">Frontend Developer | UI Enthusiast</p>
-</section>
+<section id="home" class="hero">
+  <div class="container hero-grid">
 
-<!-- ABOUT -->
-<section id="about" class="section">
-  <h2>About Me</h2>
-  <p>
-    Aspiring Electronics and Communication Engineer with strong software
-    development skills and hands-on experience in IoT-based automation,
-    embedded systems, and data-driven applications.
-  </p>
+    <div class="hero-text">
+      <span class="tag">ECE | Frontend Developer</span>
+      <h1>Hi, I'm <strong>Shubham Shinde</strong></h1>
+      <p>
+        Electronics & Communication Engineer focused on
+        frontend development, IoT and embedded systems.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#contact" class="btn primary magnetic">Contact Me</a>
+        <a href="resume/Shubham_Shinde_Resume.pdf" download
+           class="btn outline magnetic">Download CV</a>
+      </div>
+    </div>
+
+    <div id="profileFloat" class="hero-image blob">
+      <img src="images/profile.jpg" alt="Profile photo">
+    </div>
+
+    <div class="review-badge">
+      <strong>4.5 ⭐</strong>
+      <span>Reviews</span>
+    </div>
+
+  </div>
 </section>
 
 <!-- SKILLS -->
-<section id="skills" class="section skills">
-  <h2>Skills</h2>
-  <div class="skill-box">HTML</div>
-  <div class="skill-box">CSS</div>
-  <div class="skill-box">JavaScript</div>
-  <div class="skill-box">C</div>
-  <div class="skill-box">SQL</div>
-  <div class="skill-box">Python (Basic)</div>
-  <div class="skill-box">Java (Basic)</div>
+<section id="skills" class="section">
+  <div class="container">
+    <h2>Skills</h2>
+
+    <div class="skills-grid">
+      <div class="skill-card"><i class="fa-solid fa-code"></i><h3>Programming</h3><p>C, SQL, Python (Basic), Java (Basic)</p></div>
+      <div class="skill-card"><i class="fa-brands fa-html5"></i><h3>Web</h3><p>HTML, CSS</p></div>
+      <div class="skill-card"><i class="fa-solid fa-microchip"></i><h3>Embedded</h3><p>ESP32, IoT</p></div>
+      <div class="skill-card"><i class="fa-solid fa-chart-column"></i><h3>Tools</h3><p>Power BI, VS Code</p></div>
+    </div>
+  </div>
 </section>
 
-<!-- GALLERY -->
-<section id="gallery" class="section gallery">
-  <h2>Gallery</h2>
-  <div class="images">
-    <img src="images/gallery1.jpg">
-    <img src="images/gallery2.jpg">
-    <img src="images/gallery3.jpg">
-    <img src="images/gallery4.jpg">
-    <img src="images/gallery6.jpg">
-    <img src="images/gallery7.jpg">
-    <img src="images/gallery5.jpg">
-    <img src="images/gallery8.jpg">
+<!-- PROJECT IMPACT -->
+<section class="section">
+  <div class="container">
+    <h2>Project Impact</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Smart Wheelchair</h3>
+        <p>Improved mobility & safety using IoT sensors. Reduced manual effort by ~40%.</p>
+      </div>
+      <div class="skill-card">
+        <h3>Portfolio Website</h3>
+        <p>Built a responsive, accessible portfolio with modern UX & performance focus.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- RESUME -->
-<section id="resume" class="section resume">
-  <h2>Resume</h2>
+<section id="resume" class="section">
+  <div class="container">
+    <h2>Resume</h2>
+    <a href="resume/Shubham_Shinde_Resume.pdf" target="_blank" class="btn primary">View</a>
+    <a href="resume/Shubham_Shinde_Resume.pdf" download class="btn outline">Download</a>
+  </div>
+</section>
 
-  <h3>Education</h3>
-  <ul>
-    <li><b>B.E – Electronics & Communication</b><br>
-      Bheemanna Khandre Institute of Technology & Engineering (2026)<br>
-      CGPA: 7.1
-    </li>
-    <li>PUC – Diamond Independent PU College (64%)</li>
-    <li>SSLC – S.D.A English Medium High School (60%)</li>
-  </ul>
+<!-- CERTIFICATES -->
+<section id="certificates" class="section">
+  <div class="container">
+    <h2>Certificates</h2>
+    <a href="certificates/Untitled.pdf" target="_blank" class="btn primary">Infosys</a>
+    <a href="certificates/Untitled1.pdf" target="_blank" class="btn primary">CySeck</a>
 
-  <h3>Projects</h3>
-  <ul>
-    <li><b>Smart Electric Wheelchair</b> – ESP32, BTS7960, GPS, Ultrasonic</li>
-    <li><b>Automated Waste Segregation System</b> – IoT Based</li>
-    <li><b>Real-Time Collaborative Whiteboard</b></li>
-  </ul>
+    <input type="file" id="certUpload" accept="application/pdf" hidden>
+    <ul id="certList"></ul>
+  </div>
+</section>
 
-  <h3>Certifications</h3>
-  <ul>
-    <li>AI Powered Data Analytics – Forage</li>
-    <li>SQL Bootcamp – Let’s Upgrade</li>
-    <li>Cyber Security – Karnataka CySeck</li>
-  </ul>
-
-  <a href="Editable_Shahubham_Resume.pdf" download class="resume-btn">
-    Download Resume
-  </a>
+<!-- GALLERY -->
+<section id="gallery" class="section">
+  <div class="container">
+    <h2>Gallery</h2>
+    <div class="gallery-grid">
+      
+      <img src="images/gallery2.jpg">
+      <img src="images/gallery3.jpg">
+      <img src="images/gallery4.jpg">
+      <img src="images/gallery5.jpg">
+      <img src="images/gallery6.jpg">
+      <img src="images/gallery7.jpg">
+      <img src="images/gallery8.jpg">
+      <img src="images/gallery9.jpeg">
+      <img src="images/gallery10.jpeg">
+      <img src="images/gallery11.jpeg">
+      
+    
+  
+    </div>
+  </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact" class="section">
-  <h2>Contact</h2>
-  <p>Email: shindeshubham07447@gmail.com</p>
-  <p>GitHub: <a href="https://github.com/Shubhamshindea" target="_blank">github.com/Shubhamshindea</a></p>
-  <p>LinkedIn: <a href="https://www.linkedin.com/in/shubham-shinde-166831314" target="_blank">LinkedIn Profile</a></p>
+  <div class="container">
+    <h2>Contact</h2>
+
+    <p class="phone-copy" data-phone="+916362123723">
+      <i class="fa-solid fa-phone"></i> +91 63621 23723
+    </p>
+
+    <p>
+      <i class="fa-solid fa-envelope"></i>
+      <a href="mailto:shindeshubham07447@gmail.com">shindeshubham07447@gmail.com</a>
+    </p>
+
+    <p>
+      <i class="fa-brands fa-whatsapp"></i>
+      <a href="https://wa.me/+91 6362123723" target="_blank">WhatsApp</a>
+    </p>
+
+    <p><i class="fa-solid fa-location-dot"></i> Bhalki, Karnataka</p>
+  </div>
 </section>
 
-<div id="lightbox">
-  <img id="lightbox-img">
+<footer class="accessibility-badge">
+  ♿ Accessible • Performance-Focused • Mobile Friendly
+</footer>
+
+<!-- SOCIAL -->
+<div class="social-vertical">
+  <a href="https://github.com/Shubhamshindea" target="_blank"><i class="fa-brands fa-github"></i></a>
+  <a href="https://www.linkedin.com/in/shubham-shinde-166831314" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+</div>
+
+<!-- GALLERY MODAL -->
+<div id="galleryModal" class="gallery-modal">
+  <span class="close-modal">&times;</span>
+  <img id="modalImg">
+</div>
+
+<!-- ADMIN -->
+<button id="adminBtn">🔒</button>
+<div id="adminPanel">
+  <input type="password" id="adminPass" placeholder="Admin password">
+  <button id="adminLogin">Login</button>
+  <div id="adminControls" hidden>
+    <button id="addCert">Upload Certificate</button>
+    <button id="logoutAdmin">Logout</button>
+  </div>
 </div>
 
 <script src="script.js"></script>
 </body>
 </html>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shubham Shinde | Portfolio</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<header class="header">
-  <h2 class="logo">Shubham</h2>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#resume">Resume</a>
-    <a href="#contact">Contact</a>
-    <a href="https://github.com/Shubhamshindea" target="_blank">GitHub</a>
-    <a href="https://www.linkedin.com/in/shubham-shinde-166831314" target="_blank">LinkedIn</a>
-  </nav>
-</header>
-
-<!-- HERO -->
-<section class="hero">
-  <img src="images/profile.jpg" alt="Profile Photo" class="profile-pic">
-  <h1 class="fade-in">Hi, I'm Shubham Shinde</h1>
-  <p class="fade-in delay">Frontend Developer | UI Enthusiast</p>
-</section>
-
-<!-- ABOUT -->
-<section id="about" class="section">
-  <h2>About Me</h2>
-  <p>
-    Aspiring Electronics and Communication Engineer with strong software
-    development skills and hands-on experience in IoT-based automation,
-    embedded systems, and data-driven applications.
-  </p>
-</section>
-
-<!-- SKILLS -->
-<section id="skills" class="section skills">
-  <h2>Skills</h2>
-  <div class="skill-box">HTML</div>
-  <div class="skill-box">CSS</div>
-  <div class="skill-box">JavaScript</div>
-  <div class="skill-box">C</div>
-  <div class="skill-box">SQL</div>
-  <div class="skill-box">Python (Basic)</div>
-  <div class="skill-box">Java (Basic)</div>
-</section>
-
-<!-- GALLERY -->
-<section id="gallery" class="section gallery">
-  <h2>Gallery</h2>
-  <div class="images">
-    <img src="images/gallery1.jpg">
-    <img src="images/gallery2.jpg">
-    <img src="images/gallery3.jpg">
-    <img src="images/gallery4.jpg">
-    <img src="images/gallery6.jpg">
-    <img src="images/gallery7.jpg">
-    <img src="images/gallery5.jpg">
-    <img src="images/gallery8.jpg">
-  </div>
-</section>
-
-<!-- RESUME -->
-<section id="resume" class="section resume">
-  <h2>Resume</h2>
-
-  <h3>Education</h3>
-  <ul>
-    <li><b>B.E – Electronics & Communication</b><br>
-      Bheemanna Khandre Institute of Technology & Engineering (2026)<br>
-      CGPA: 7.1
-    </li>
-    <li>PUC – Diamond Independent PU College (64%)</li>
-    <li>SSLC – S.D.A English Medium High School (60%)</li>
-  </ul>
-
-  <h3>Projects</h3>
-  <ul>
-    <li><b>Smart Electric Wheelchair</b> – ESP32, BTS7960, GPS, Ultrasonic</li>
-    <li><b>Automated Waste Segregation System</b> – IoT Based</li>
-    <li><b>Real-Time Collaborative Whiteboard</b></li>
-  </ul>
-
-  <h3>Certifications</h3>
-  <ul>
-    <li>AI Powered Data Analytics – Forage</li>
-    <li>SQL Bootcamp – Let’s Upgrade</li>
-    <li>Cyber Security – Karnataka CySeck</li>
-  </ul>
-
-  <a href="Editable_Shahubham_Resume.pdf" download class="resume-btn">
-    Download Resume
-  </a>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="section">
-  <h2>Contact</h2>
-  <p>Email: shindeshubham07447@gmail.com</p>
-  <p>GitHub: <a href="https://github.com/Shubhamshindea" target="_blank">github.com/Shubhamshindea</a></p>
-  <p>LinkedIn: <a href="https://www.linkedin.com/in/shubham-shinde-166831314" target="_blank">LinkedIn Profile</a></p>
-</section>
-
-<div id="lightbox">
-  <img id="lightbox-img">
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
->>>>>>> bd1ea4a1245d1a20568869b344277c9c2e8a5fa8
