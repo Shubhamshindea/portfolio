@@ -20,7 +20,7 @@ a{text-decoration:none;color:inherit}
   overflow: hidden;
   box-shadow:
     0 25px 60px rgba(5, 5, 5, 0.6),
-    0 0 0 2px rgba(045, 2296, 168, 0.25);
+    0 0 0 2px rgba(045, 206, 168, 0.25);
   transition: transform 0.4s ease;
 }
 
@@ -56,7 +56,7 @@ background-size:400% 400%;animation:bg 10s infinite}
 .hero-image.scrolled{
 position:fixed;top:90px;right:50px;
 width:65px;height:65px;border-radius:70%;z-index:999;
-box-shadow:0 0 15px ,#03ecc5(7, 237, 176, 0.649)
+box-shadow: 0 0 15px rgba(7, 237, 176, 0.65);
 }
 .hero-image.scrolled img{border-radius:50%}
 nav {
@@ -141,9 +141,6 @@ nav {
     font-size: 14px;
     line-height: 1.6;
   }
-}
-.admin-only {
-  display: none;
 }
 
 body.admin .admin-only {
@@ -669,9 +666,7 @@ html, body {
 .admin-only {
   display: none;
 }
-.admin-only {
-  display: none;
-}
+
 
 body.admin .admin-only {
   display: inline-flex;
@@ -738,7 +733,7 @@ body.admin .admin-only {
   width: 196px;
   height: 196px;
   border-radius: 90%;
-  object-fit:circle;
+  object-fit:fill;
   border: 2px solid #00e5a8;
   flex-shrink: 6;
 }
@@ -823,27 +818,6 @@ body.admin .admin-only {
   max-width: 95%;
   max-height: 90%;
   object-fit: contain;
-}
-/* ================================
-   ADMIN BADGE
-================================ */
-#adminBadge {
-  position: fixed;
-  top: 80px;
-  right: 20px;
-  background: #00e5a8;
-  color: #000;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 600;
-  box-shadow: 0 0 15px rgba(0,229,168,0.5);
-  display: none;
-  z-index: 4000;
-}
-
-body.admin #adminBadge {
-  display: block;
 }
 /* ================================
    ADMIN BADGE
@@ -1312,7 +1286,7 @@ body.edit-mode #editModeBtn {
   display: none;
   min-width: 12px;
   box-shadow: 0 8px 30px rgba(0,0,0,.25);
-  z-index: 3000;
+  z-index: 10001;
 }
 
 .menu-dropdown button {
@@ -1587,7 +1561,7 @@ body.light {
     width: 90%;
   }
 }
-adminPanel.classList.toggle("show");
+
 .btn:active {
   transform: scale(0.96);
 }
@@ -1812,5 +1786,349 @@ body.light .cursor-glow {
 @media (max-width: 768px) {
   .magnetic {
     transform: none !important;
+  }
+}
+/* =========================
+   HEADER FINAL FIX (SAFE)
+   Desktop + Mobile
+========================= */
+
+/* Desktop header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(12px);
+  z-index: 9999;
+}
+
+/* Header layout */
+.header-inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* logo | nav | 3 dots */
+  align-items: center;
+  gap: 24px;
+}
+
+/* Logo fix */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.logo-profile {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.logo-name {
+  font-size: 18px;
+}
+
+/* NAV center */
+.nav-links {
+  justify-self: center;
+}
+
+/* 3-dot menu right corner */
+.theme-menu {
+  justify-self: end;
+}
+.theme-menu {
+  position: relative;
+  z-index: 10000;
+}
+
+/* Push page content below fixed header */
+.hero {
+  padding-top: 120px;
+}
+
+/* =========================
+   MOBILE HEADER FIX
+========================= */
+@media (max-width: 768px) {
+
+  .header-inner {
+    grid-template-columns: auto 1fr auto;
+    gap: 10px;
+  }
+
+  .logo-profile {
+    width: 34px;
+    height: 34px;
+  }
+
+  .logo-name {
+    font-size: 14px;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav-links {
+    display: none; /* clean mobile header */
+  }
+
+  .hero {
+    padding-top: 100px;
+  }
+
+  /* profile image slightly smaller */
+  .hero-image {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* Admin toggle button */
+.admin-toggle {
+  margin-top: 10px;
+  background: #ffaa00;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.cert-list {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cert-item {
+  background: #6ef3c5;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Hidden for public */
+.section-hidden-public {
+  display: none;
+}
+
+/* Visible but marked for admin */
+.section-hidden-admin {
+  opacity: 0.4;
+  filter: grayscale(100%);
+  border: 2px dashed #ff9800;
+  padding: 10px;
+}
+/* ==== FIX: 3 DOT MENU CLICK ISSUE ==== */
+
+/* Nav should not steal clicks */
+.nav-links {
+  pointer-events: none;
+}
+
+/* But links inside nav should still work */
+.nav-links a {
+  pointer-events: auto;
+}
+
+/* Force 3-dot menu to be clickable */
+.theme-menu,
+#menuBtn,
+.menu-dropdown {
+  pointer-events: auto !important;
+  z-index: 99999 !important;
+}
+/* =====================================
+   DESKTOP HEADER – FINAL PERFECT FIT
+===================================== */
+@media (min-width: 769px) {
+
+  /* Header shell */
+  .header {
+    height: 42px;
+    padding: 0;
+  }
+
+  /* Header layout */
+  .header-inner {
+    height: 42px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* logo | nav | 3 dots */
+    align-items: center;
+  }
+
+  /* Logo left */
+  .logo {
+    justify-self: start;
+  }
+
+  /* Nav perfectly centered */
+  .nav-links {
+    justify-self: center;
+    display: flex;
+    gap: 28px;
+  }
+
+  /* 3-dot menu fixed right */
+  .theme-menu {
+    justify-self: end;
+    position: relative;
+    z-index: 10000;
+  }
+
+  /* Dropdown aligned under dots */
+  .menu-dropdown {
+    right: 0;
+    top: 46px;
+  }
+
+  /* Push content below header */
+  .hero {
+    padding-top: 130px;
+  }
+}
+/* =====================================
+   DESKTOP HEADER – FINAL CLEAN FIX
+===================================== */
+@media (min-width: 769px) {
+
+  /* Header height & background untouched */
+  .header {
+    height: 62px;
+  }
+
+  /* Header layout */
+  .header-inner {
+    height: 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 28px;
+
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* logo | nav | dots */
+    align-items: center;
+  }
+
+  /* LOGO SECTION (LEFT) */
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-self: start;
+  }
+
+  /* LOGO IMAGE */
+  .logo-profile {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* NAME BESIDE LOGO – SMALLER & CLEAN */
+  .logo-name {
+    font-size: 29px;        /* ⬅ reduced */
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  /* NAV – PERFECT CENTER */
+  .nav-links {
+    justify-self: center;
+    display: flex;
+    gap: 26px;
+    font-size: 26px;
+  }
+
+  /* 3 DOT MENU – EXTREME RIGHT */
+  .theme-menu {
+    justify-self: end;
+    position: relative;
+    margin-left: auto;
+    z-index: 10000;
+  }
+
+  #menuBtn {
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  /* DROPDOWN UNDER DOTS */
+  .menu-dropdown {
+    right: 0;
+    top: 24px;
+  }
+
+  /* HERO OFFSET */
+  .hero {
+    padding-top: 12px;
+  }
+}
+@media (min-width: 769px) {
+  .theme-menu {
+    position: absolute;
+    right: 54px;     /* distance from right edge */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10000;
+  }
+}
+/* =====================================
+   MOBILE HEADER – SHOW NAV LINKS
+===================================== */
+@media (max-width: 768px) {
+
+  /* Header layout */
+  .header-inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* logo | nav | 3 dots */
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* LOGO IMAGE */
+  .logo-profile {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+
+  /* LOGO NAME – SMALLER */
+  .logo-name {
+    font-size: 12px;
+    max-width: 90px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* NAV LINKS – SHOW & SHRINK */
+  .nav-links {
+    display: flex !important;   /* 🔥 re-enable */
+    gap: 10px;
+    font-size: 12px;
+    justify-content: center;
+    white-space: nowrap;
+  }
+
+  .nav-links a {
+    padding: 4px 2px;
+    font-size: 12px;
+  }
+
+  /* 3 DOT MENU */
+  .theme-menu {
+    justify-self: end;
+  }
+
+  #menuBtn {
+    font-size: 18px;
   }
 }

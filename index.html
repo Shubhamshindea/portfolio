@@ -128,6 +128,10 @@
 <section id="education" class="section">
   <div class="container">
     <h2>Education</h2>
+    <button class="admin-toggle admin-only" data-target="education">
+  Hide / Show Education
+</button>
+
     <div class="skills-grid education-grid">
       <div class="skill-card">
         <h3>B.E – Electronics & Communication Engineering</h3>
@@ -159,18 +163,36 @@
 <!-- CERTIFICATES -->
 <section id="certificates" class="section">
   <div class="container">
+
+    <!-- Admin Upload Button -->
+    <button id="uploadCertBtn" class="btn outline admin-only">
+      Upload Certificate
+    </button>
+
+    <!-- Hidden File Input -->
+    <input type="file" id="certUpload" accept="application/pdf" hidden>
+
     <h2>Certificates</h2>
+
+    <!-- Static Certificates -->
     <a href="certificates/Untitled.pdf" target="_blank" class="btn primary">Infosys</a>
     <a href="certificates/Untitled1.pdf" target="_blank" class="btn primary">CySeck</a>
-    <input type="file" id="certUpload" accept="application/pdf" hidden>
+
+    <!-- Dynamic Certificates -->
     <ul id="certList"></ul>
+
   </div>
 </section>
+
 
 <!-- GALLERY -->
 <section id="gallery" class="section">
   <div class="container">
     <h2>Gallery</h2>
+    <button class="admin-toggle admin-only" data-target="gallery">
+  Hide / Show Gallery
+</button>
+
     <div class="gallery-grid">
       <img src="images/gallery2.jpg"loading="lazy">
       <img src="images/gallery3.jpg"loading="lazy">

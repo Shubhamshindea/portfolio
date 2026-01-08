@@ -1,19 +1,20 @@
 /*************************************************
- SAFE GLOBAL STATE
+ GLOBAL HELPERS
 **************************************************/
-const ADMIN_PASSWORD = "143214";
-
-const $ = (id) => document.getElementById(id);
-const qs = (q) => document.querySelector(q);
-const qsa = (q) => document.querySelectorAll(q);
+const $ = id => document.getElementById(id);
+const qs = q => document.querySelector(q);
+const qsa = q => document.querySelectorAll(q);
 
 const isAdmin = () => localStorage.getItem("admin") === "true";
 const isEditMode = () => localStorage.getItem("editMode") === "true";
 
+/*************************************************
+ APPLY ADMIN CLASS
+**************************************************/
 if (isAdmin()) document.body.classList.add("admin");
 
 /*************************************************
- HEADER + SCROLL BAR
+ HEADER + SCROLL
 **************************************************/
 const header = qs(".header");
 const bar = $("scrollProgress");
@@ -37,7 +38,7 @@ window.addEventListener("scroll", () => {
 });
 
 /*************************************************
- GALLERY MODAL (FIXED)
+ GALLERY MODAL (CLICK WORKS)
 **************************************************/
 const modal = $("galleryModal");
 const modalImg = $("modalImg");
@@ -46,7 +47,6 @@ const closeModal = qs(".close-modal");
 function attachGalleryModal() {
   qsa(".gallery-grid img").forEach(img => {
     img.onclick = () => {
-      if (!modal || !modalImg) return;
       modal.style.display = "flex";
       modalImg.src = img.src;
     };
@@ -54,381 +54,226 @@ function attachGalleryModal() {
 }
 attachGalleryModal();
 
-if (closeModal && modal) {
-  closeModal.onclick = () => (modal.style.display = "none");
-  modal.onclick = (e) => {
-    if (e.target === modal) modal.style.display = "none";
-  };
-}
+closeModal.onclick = () => modal.style.display = "none";
+modal.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
 
 /*************************************************
- ADMIN PANEL (FIXED)
+ ADMIN LOGIN
 **************************************************/
-const adminBtn = $("adminBtn");
-const adminPanel = $("adminPanel");
-const adminUser = $("adminUser");
-const adminPass = $("adminPass");
-const adminLoginBtn = $("adminLoginBtn");
-const adminLogoutBtn = $("adminLogoutBtn");
-const adminControls = $("adminControls");
-const adminLoginForm = $("adminLoginForm");
+const ADMIN_PASSWORD = "143214";
 
-if (adminBtn && adminPanel) {
-  adminBtn.onclick = () => {
-    adminPanel.classList.toggle("show");
+$("adminBtn").onclick = () => $("adminPanel").classList.toggle("show");
 
-  };
-}
+$("adminLoginBtn").onclick = () => {
+  if ($("adminPass").value !== ADMIN_PASSWORD) {
+    alert("Wrong password");
+    return;
+  }
+  localStorage.setItem("admin", "true");
+  localStorage.setItem("editMode", "false");
+  location.reload();
+};
 
-let attempts = Number(localStorage.getItem("adminAttempts")) || 0;
-let lockedUntil = Number(localStorage.getItem("adminLockedUntil")) || 0;
-
-if (adminLoginBtn) {
-  adminLoginBtn.onclick = () => {
-
-    const now = Date.now();
-
-    if (lockedUntil && now < lockedUntil) {
-      alert("Admin login locked. Try again later.");
-      return;
-    }
-
-    if (!adminUser.value.trim()) {
-      alert("Enter admin name");
-      return;
-    }
-
-    if (adminPass.value !== ADMIN_PASSWORD) {
-      attempts++;
-      localStorage.setItem("adminAttempts", attempts);
-
-      adminLoginForm.classList.add("shake");
-      setTimeout(() => adminLoginForm.classList.remove("shake"), 400);
-
-      if (attempts >= 3) {
-        lockedUntil = now + 5 * 60 * 1000; // 5 minutes
-        localStorage.setItem("adminLockedUntil", lockedUntil);
-        alert("Too many attempts. Login locked for 5 minutes.");
-      } else {
-        alert(`Wrong password (${3 - attempts} attempts left)`);
-      }
-      return;
-    }
-
-    // SUCCESS
-    localStorage.removeItem("adminAttempts");
-    localStorage.removeItem("adminLockedUntil");
-
-    localStorage.setItem("admin", "true");
-    localStorage.setItem("editMode", "false");
-    location.reload();
-  };
-}
-
-if (adminLogoutBtn) {
-  adminLogoutBtn.onclick = () => {
-    if (!confirm("Logout admin?")) return;
-    localStorage.removeItem("admin");
-    localStorage.removeItem("editMode");
-    location.reload();
-  };
-}
+$("adminLogoutBtn").onclick = () => {
+  localStorage.removeItem("admin");
+  localStorage.removeItem("editMode");
+  location.reload();
+};
 
 if (isAdmin()) {
-  adminLoginForm && (adminLoginForm.style.display = "none");
-  adminControls && (adminControls.hidden = false);
+  $("adminLoginForm").style.display = "none";
+  $("adminControls").hidden = false;
 }
 
 /*************************************************
- EDIT MODE (FIXED)
+ EDIT MODE
 **************************************************/
-const editModeBtn = $("editModeBtn");
+const editBtn = $("editModeBtn");
 
-function setEditMode(state) {
-  localStorage.setItem("editMode", state ? "true" : "false");
+function setEdit(state) {
+  localStorage.setItem("editMode", state);
   document.body.classList.toggle("edit-mode", state);
-  if (editModeBtn)
-    editModeBtn.innerText = state ? "Disable Edit Mode" : "Enable Edit Mode";
-  enableInlineEdit();
+  editBtn.innerText = state ? "Disable Edit Mode" : "Enable Edit Mode";
 }
 
-if (isAdmin()) setEditMode(isEditMode());
-
-if (editModeBtn) {
-  editModeBtn.onclick = () => setEditMode(!isEditMode());
-}
+if (isAdmin()) setEdit(isEditMode());
+editBtn.onclick = () => setEdit(!isEditMode());
 
 /*************************************************
- INLINE TEXT EDIT (SAFE)
+ INLINE TEXT EDIT
 **************************************************/
-function saveTextContent() {
+function saveText() {
   const data = [];
-  qsa("[data-editable]").forEach(el => data.push(el.innerHTML));
+  qsa("[data-edit]").forEach(el => data.push(el.innerHTML));
   localStorage.setItem("textContent", JSON.stringify(data));
-  showSaved();
-
 }
 
-function restoreTextContent() {
+function restoreText() {
   const data = JSON.parse(localStorage.getItem("textContent") || "[]");
-  qsa("[data-editable]").forEach((el, i) => {
+  qsa("[data-edit]").forEach((el, i) => {
     if (data[i]) el.innerHTML = data[i];
   });
 }
 
-function enableInlineEdit() {
+function enableEdit() {
   qsa("h1,h2,h3,p,span,a").forEach(el => {
     el.removeAttribute("contenteditable");
+    el.removeAttribute("data-edit");
   });
 
   if (!isAdmin() || !isEditMode()) return;
 
   qsa("h1,h2,h3,p,span,a").forEach(el => {
     if (el.closest("button")) return;
-
-    el.setAttribute("data-editable", "true");
-
-    el.ondblclick = () => {
-      el.contentEditable = "true";
-      el.focus();
-    };
-
-    el.onblur = () => {
-      el.contentEditable = "false";
-      saveTextContent();
-    };
+    el.dataset.edit = "1";
+    el.ondblclick = () => el.contentEditable = true;
+    el.onblur = () => { el.contentEditable = false; saveText(); };
   });
 }
 
-restoreTextContent();
-enableInlineEdit();
+restoreText();
+enableEdit();
 
 /*************************************************
- PROFILE IMAGE UPLOAD (FIXED)
+ ADMIN SECTION HIDE (FINAL – FIXED)
 **************************************************/
-const profileImg = qs("#profileFloat img");
-const profileUpload = document.createElement("input");
-profileUpload.type = "file";
-profileUpload.accept = "image/*";
-profileUpload.hidden = true;
-document.body.appendChild(profileUpload);
+qsa(".admin-toggle").forEach(btn => {
+  const id = btn.dataset.target;
+  const section = $(id);
+  const content =
+    section.querySelector(".skills-grid") ||
+    section.querySelector(".gallery-grid");
 
-if (profileImg) {
-  profileImg.onclick = (e) => {
-    if (!isAdmin() || !isEditMode()) return;
+  const key = "hide_" + id;
+
+  const hidden = localStorage.getItem(key) === "true";
+
+  if (!isAdmin()) {
+    btn.style.display = "none";
+    if (hidden) content.style.display = "none";
+    return;
+  }
+
+  btn.style.display = "inline-block";
+  btn.innerText = hidden ? "Show" : "Hide";
+
+  if (hidden) {
+    content.style.opacity = "0.4";
+    content.style.filter = "grayscale(100%)";
+    content.style.border = "2px dashed #ffaa00";
+  }
+
+  btn.onclick = () => {
+    const nowHidden = localStorage.getItem(key) !== "true";
+    localStorage.setItem(key, nowHidden);
+    location.reload();
+  };
+});
+
+/*************************************************
+ CERTIFICATES (UPLOAD + HIDE + DELETE)
+**************************************************/
+const uploadBtn = $("uploadCertBtn");
+const certInput = $("certUpload");
+const certList = $("certList");
+
+let certs = JSON.parse(localStorage.getItem("certificates")) || [];
+
+if (!isAdmin()) uploadBtn.style.display = "none";
+
+uploadBtn.onclick = () => certInput.click();
+
+certInput.onchange = () => {
+  const file = certInput.files[0];
+  if (!file) return;
+
+  certs.push({ name: file.name, url: URL.createObjectURL(file), hidden:false });
+  localStorage.setItem("certificates", JSON.stringify(certs));
+  location.reload();
+};
+
+function renderCerts() {
+  certList.innerHTML = "";
+
+  certs.forEach((c,i) => {
+    if (c.hidden && !isAdmin()) return;
+
+    const wrap = document.createElement("div");
+    wrap.className = "cert-item";
+
+    const a = document.createElement("a");
+    a.href = c.url;
+    a.target = "_blank";
+    a.className = "btn primary";
+    a.textContent = c.name;
+
+    wrap.appendChild(a);
+
+    if (isAdmin()) {
+      const h = document.createElement("button");
+      h.textContent = c.hidden ? "Show" : "Hide";
+      h.className = "admin-btn";
+      h.onclick = () => {
+        certs[i].hidden = !certs[i].hidden;
+        localStorage.setItem("certificates", JSON.stringify(certs));
+        location.reload();
+      };
+
+      const d = document.createElement("button");
+      d.textContent = "Delete";
+      d.className = "admin-btn";
+      d.onclick = () => {
+        certs.splice(i,1);
+        localStorage.setItem("certificates", JSON.stringify(certs));
+        location.reload();
+      };
+
+      wrap.append(h,d);
+    }
+
+    certList.appendChild(wrap);
+  });
+}
+renderCerts();
+document.addEventListener("DOMContentLoaded", () => {
+
+  const menuBtn = document.getElementById("menuBtn");
+  const menuDropdown = document.getElementById("menuDropdown");
+  const themeToggle = document.getElementById("themeToggle");
+  const themeIcon = document.getElementById("themeIcon");
+
+  if (!menuBtn || !menuDropdown || !themeToggle || !themeIcon) {
+    console.error("Theme menu elements missing");
+    return;
+  }
+
+  // Restore theme
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "light") {
+    document.body.classList.add("light");
+    themeIcon.textContent = "☀️";
+  }
+
+  // Open / close menu
+  menuBtn.addEventListener("click", (e) => {
     e.stopPropagation();
-    profileUpload.click();
-  };
-}
-
-profileUpload.onchange = () => {
-  const file = profileUpload.files[0];
-  if (!file || !profileImg) return;
-  const url = URL.createObjectURL(file);
-  profileImg.src = url;
-  localStorage.setItem("profileImg", url);
-};
-
-const savedProfile = localStorage.getItem("profileImg");
-if (savedProfile && profileImg) profileImg.src = savedProfile;
-
-/*************************************************
- GALLERY SAVE / RESTORE
-**************************************************/
-function saveGallery() {
-  const imgs = [];
-  qsa(".gallery-grid img").forEach(img => imgs.push(img.src));
-  localStorage.setItem("galleryImgs", JSON.stringify(imgs));
-}
-
-function restoreGallery() {
-  const imgs = JSON.parse(localStorage.getItem("galleryImgs") || "[]");
-  if (!imgs.length) return;
-
-  const grid = qs(".gallery-grid");
-  if (!grid) return;
-
-  grid.innerHTML = "";
-  imgs.forEach(src => {
-    const img = document.createElement("img");
-    img.src = src;
-    grid.appendChild(img);
+    menuDropdown.classList.toggle("show");
   });
 
-  attachGalleryModal();
-}
-restoreGallery();
-/*************************************************
- MOBILE HAPTIC FEEDBACK (ANDROID ONLY)
-**************************************************/
-if (/Android/i.test(navigator.userAgent) && "vibrate" in navigator) {
+  // Toggle theme
+  themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("light");
 
-  /* Profile photo tap */
-  const profileImg = document.querySelector("#profileFloat img");
-  if (profileImg) {
-    profileImg.addEventListener("click", () => {
-      navigator.vibrate(20);
-    });
-  }
+    const isLight = document.body.classList.contains("light");
+    themeIcon.textContent = isLight ? "☀️" : "🌙";
+    localStorage.setItem("theme", isLight ? "light" : "dark");
 
-  /* Button taps */
-  document.querySelectorAll(".btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      navigator.vibrate(10);
-    });
-  });
-
-}
-/*************************************************
- THEME TOGGLE + 3 DOT MENU
-**************************************************/
-const menuBtn = document.getElementById("menuBtn");
-const menuDropdown = document.getElementById("menuDropdown");
-const themeToggle = document.getElementById("themeToggle");
-const themeIcon = document.getElementById("themeIcon");
-
-/* Restore theme */
-const savedTheme = localStorage.getItem("theme");
-if (savedTheme === "light") {
-  document.body.classList.add("light");
-  themeIcon.textContent = "☀️";
-}
-
-/* Toggle menu */
-menuBtn.onclick = () => {
-  menuDropdown.classList.toggle("show");
-};
-
-/* Toggle theme */
-themeToggle.onclick = () => {
-  document.body.classList.toggle("light");
-
-  const isLight = document.body.classList.contains("light");
-  themeIcon.textContent = isLight ? "☀️" : "🌙";
-  localStorage.setItem("theme", isLight ? "light" : "dark");
-
-  menuDropdown.classList.remove("show");
-};
-
-/* Close menu on outside click */
-document.addEventListener("click", (e) => {
-  if (!e.target.closest(".theme-menu")) {
     menuDropdown.classList.remove("show");
-  }
-});
-document.addEventListener("click", (e) => {
-  const panel = document.getElementById("adminPanel");
-  const btn = document.getElementById("adminBtn");
-
-  if (!panel || !btn) return;
-
-  if (
-    panel.classList.contains("show") &&
-    !panel.contains(e.target) &&
-    e.target !== btn
-  ) {
-    panel.classList.remove("show");
-  }
-});
-function showSaved() {
-  let tag = document.getElementById("saveTag");
-  if (!tag) {
-    tag = document.createElement("div");
-    tag.id = "saveTag";
-    tag.innerText = "Saved ✓";
-    tag.style.cssText =
-      "position:fixed;bottom:20px;left:20px;background:#00e5a8;color:#000;padding:6px 12px;border-radius:12px;font-size:12px;z-index:6000;";
-    document.body.appendChild(tag);
-  }
-
-  tag.style.opacity = "1";
-  setTimeout(() => (tag.style.opacity = "0"), 1200);
-}
-window.addEventListener("beforeunload", (e) => {
-  if (localStorage.getItem("editMode") === "true") {
-    e.preventDefault();
-    e.returnValue = "";
-  }
-});
-const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll(".nav-links a");
-
-window.addEventListener("scroll", () => {
-  let current = "";
-
-  sections.forEach(sec => {
-    const top = sec.offsetTop - 140;
-    if (scrollY >= top) current = sec.getAttribute("id");
   });
 
-  navLinks.forEach(a => {
-    a.classList.remove("active");
-    if (a.getAttribute("href") === "#" + current) {
-      a.classList.add("active");
-    }
+  // Close menu when clicking outside
+  document.addEventListener("click", () => {
+    menuDropdown.classList.remove("show");
   });
+
 });
-document.querySelectorAll("img").forEach(img => {
-  img.onerror = () => {
-    img.src = "images/profile.jpg";
-  };
-});
-if (isAdmin()) {
-  let timer;
-  const reset = () => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      alert("Admin session expired");
-      localStorage.removeItem("admin");
-      localStorage.removeItem("editMode");
-      location.reload();
-    }, 10 * 60 * 1000);
-  };
-
-  ["click","mousemove","keydown","scroll"].forEach(e =>
-    document.addEventListener(e, reset)
-  );
-
-  reset();
-}
-if (isAdmin()) {
-  window.addEventListener("beforeunload", (e) => {
-    if (isEditMode()) {
-      e.preventDefault();
-      e.returnValue = "";
-    }
-  });
-}
-window.addEventListener("load", () => {
-  document.body.classList.add("loaded");
-});
-/* MOUSE FOLLOW GLOW */
-const glow = document.querySelector(".cursor-glow");
-
-if (glow && window.innerWidth > 768) {
-  document.addEventListener("mousemove", (e) => {
-    glow.style.left = e.clientX + "px";
-    glow.style.top = e.clientY + "px";
-  });
-}
-/* MAGNETIC CURSOR EFFECT */
-if (window.innerWidth > 768) {
-  document.querySelectorAll(
-    ".btn, .nav-links a, .skill-card, .gallery-grid img"
-  ).forEach(el => {
-
-    el.classList.add("magnetic");
-
-    el.addEventListener("mousemove", (e) => {
-      const rect = el.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-
-      el.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
-    });
-
-    el.addEventListener("mouseleave", () => {
-      el.style.transform = "translate(0,0)";
-    });
-  });
-}
