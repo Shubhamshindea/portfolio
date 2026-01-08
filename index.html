@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Shubham Shinde | Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+<!-- SCROLL PROGRESS -->
+<div id="scrollProgress"></div>
+
+<header class="header">
+  <div class="container header-inner">
+
+    <!-- LOGO -->
+    <h2 class="logo">
+      <img src="images/profile.jpg" alt="Profile" class="logo-profile">
+      <span class="logo-name">Shubham Shinde</span>
+    </h2>
+
+    <!-- NAV -->
+    <nav class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#skills">Skills</a>
+      <a href="#resume">Resume</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- 3 DOT MENU + THEME -->
+    <div class="theme-menu">
+      <button id="menuBtn">⋮</button>
+      <div id="menuDropdown" class="menu-dropdown">
+        <button id="themeToggle">
+          <span id="themeIcon">🌙</span>
+          <span>Toggle Theme</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="container hero-grid">
+
+    <div class="hero-text">
+      <span class="tag">ECE | Frontend Developer</span>
+      <h1>Hi, I'm <strong>Shubham Shinde</strong></h1>
+      <p>
+        Electronics & Communication Engineer focused on
+        frontend development, IoT and embedded systems.
+      </p>
+
+
+
+      <h1></h1>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn primary magnetic">Contact Me</a>
+        <a href="resume/Shubham_Shinde_Resume.pdf" download class="btn outline magnetic">Download CV</a>
+      </div>
+    </div>
+
+    <div class="profile-wrapper">
+  <div id="profileFloat" class="hero-image blob">
+    <img src="images/profile.jpg" alt="Profile photo">
+  </div>
+
+  <!-- Open to Work badge (OUTSIDE image) -->
+  <div class="open-work-badge">
+    <span class="work-dot"></span>
+    <span class="work-text">Open to Work</span>
+  </div>
+</div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="section">
+  <div class="container">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card"><i class="fa-solid fa-code"></i><h3>Programming</h3><p>C, SQL, Python (Basic), Java (Basic)</p></div>
+      <div class="skill-card"><i class="fa-brands fa-html5"></i><h3>Web</h3><p>HTML, CSS</p></div>
+      <div class="skill-card"><i class="fa-solid fa-microchip"></i><h3>Embedded</h3><p>ESP32, IoT</p></div>
+      <div class="skill-card"><i class="fa-solid fa-chart-column"></i><h3>Tools</h3><p>Power BI, VS Code</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section">
+  <div class="container">
+    <h2>Projects</h2>
+    <div class="skills-grid projects-grid">
+      <div class="skill-card">
+        <h3>Smart Wheelchair</h3>
+        <p>ESP32-based smart wheelchair with Bluetooth, joystick & voice control. Includes obstacle detection, fall detection, GPS tracking and BTS7960 motor driver.</p>
+      </div>
+      <div class="skill-card">
+        <h3>Automated Waste Segregation System</h3>
+        <p>IoT-based system to automatically segregate metal, plastic and organic waste.</p>
+      </div>
+      <div class="skill-card">
+        <h3>Path Following Car</h3>
+        <p>Sensor-based robotic vehicle designed to follow a predefined path.</p>
+      </div>
+      <div class="skill-card">
+        <h3>Real-Time Collaborative Whiteboard</h3>
+        <p>Web-based whiteboard application enabling real-time collaboration.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="section">
+  <div class="container">
+    <h2>Education</h2>
+    <div class="skills-grid education-grid">
+      <div class="skill-card">
+        <h3>B.E – Electronics & Communication Engineering</h3>
+        <p>Bheemanna Khandre Institute of Technology<br>CGPA: 7.1<br>Year: 2022 – 2026</p>
+      </div>
+      <div class="skill-card">
+        <h3>PUC (XII)</h3>
+        <p>Diamond Independent PU College<br>Percentage: 54%/<br>Year: 2020–2022</p>
+      </div>
+      </div>
+      <div class="skill-card">
+        <h3>SSLC (X)</h3>
+        <p>SDA English Medium High School<br>Percentage: 60%<br>Year: 2010-2020</p>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume" class="section">
+  <div class="container">
+    <h2>Resume</h2>
+    <a href="resume/Shubham_Shinde_Resume.pdf" target="_blank" class="btn primary">View</a>
+    <a href="resume/Shubham_Shinde_Resume.pdf" download class="btn outline">Download</a>
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certificates" class="section">
+  <div class="container">
+    <h2>Certificates</h2>
+    <a href="certificates/Untitled.pdf" target="_blank" class="btn primary">Infosys</a>
+    <a href="certificates/Untitled1.pdf" target="_blank" class="btn primary">CySeck</a>
+    <input type="file" id="certUpload" accept="application/pdf" hidden>
+    <ul id="certList"></ul>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="section">
+  <div class="container">
+    <h2>Gallery</h2>
+    <div class="gallery-grid">
+      <img src="images/gallery2.jpg"loading="lazy">
+      <img src="images/gallery3.jpg"loading="lazy">
+      <img src="images/gallery4.jpg"loading="lazy">
+      <img src="images/gallery5.jpg"loading="lazy">
+      <img src="images/gallery6.jpg"loading="lazy">
+      <img src="images/gallery7.jpg"loading="lazy">
+      <img src="images/gallery8.jpg"loading="lazy">
+      <img src="images/gallery9.jpeg"loading="lazy">
+      <img src="images/gallery10.jpeg"loading="lazy">
+      <img src="images/gallery11.jpeg"loading="lazy">
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="container">
+    <h2>Contact</h2>
+    <p class="phone-copy" data-phone="+916362123723"><i class="fa-solid fa-phone"></i> +91 63621 23723</p>
+    <p><i class="fa-solid fa-location-dot"></i> Bhalki, Karnataka</p>
+    <p>
+  <i class="fa-solid fa-envelope"></i>
+  <a href="mailto:shindeshubham07447@gmail.com">shindeshubham07447@gmail.com</a>
+</p>
+
+<p>
+  <i class="fa-brands fa-whatsapp"></i>
+  <a href="https://wa.me/6362123723" target="_blank">WhatsApp</a>
+</p>
+
+  </div>
+</section>
+
+<footer class="accessibility-badge">
+  <p style="font-size:12px;opacity:.6;margin-top:6px"></p>
+© 2026 Shubham Shinde. All rights reserved♿ .
+</footer>
+
+
+
+<!-- SOCIAL -->
+<div class="social-vertical">
+
+  <a href="https://github.com/Shubhamshindea" target="_blank" title="GitHub">
+    <i class="fa-brands fa-github"></i>
+  </a>
+
+  <a href="https://www.linkedin.com/in/shubham-shinde-166831314" target="_blank" title="LinkedIn">
+    <i class="fa-brands fa-linkedin"></i>
+  </a>
+
+  <a href="mailto:shindeshubham07447@gmail.com" title="Email">
+    <i class="fa-solid fa-envelope"></i>
+  </a>
+  <a href="https://wa.me/916362123723" target="_blank" title="WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+</div>
+
+
+
+<!-- GALLERY MODAL -->
+<div id="galleryModal" class="gallery-modal">
+  <span class="close-modal">&times;</span>
+ <img id="modalImg">
+</div>
+
+<!-- ADMIN -->
+<!-- ADMIN BUTTON -->
+<button id="adminBtn">🔒</button>
+
+<<!-- ADMIN PANEL -->
+<div id="adminPanel" class="admin-modal">
+
+  <div class="admin-box">
+
+    <!-- LOGIN FORM -->
+    <div id="adminLoginForm">
+      <h3>🔐 Admin Login</h3>
+
+      <input type="text" id="adminUser" placeholder="Admin name">
+      <input type="password" id="adminPass" placeholder="Password">
+
+      <button id="adminLoginBtn">Login</button>
+    </div>
+
+    <!-- ADMIN CONTROLS -->
+    <div id="adminControls" hidden>
+      <h3>⚙️ Admin Panel</h3>
+
+      <button id="editModeBtn">Enable Edit Mode</button>
+      <button id="adminLogoutBtn">Logout</button>
+    </div>
+
+  </div>
+</div>
+<!-- SAVE STATUS -->
+<div id="saveTag" style="opacity:0;pointer-events:none;"></div>
+<div class="cursor-glow"></div>
+
+
+<script src="script.js"></script>
+</body>
+</html>
